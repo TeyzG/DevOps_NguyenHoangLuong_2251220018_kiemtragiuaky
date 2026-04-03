@@ -20,7 +20,7 @@ app.get('/about', (req, res) => {
     res.json({
         ho_ten: "Nguyễn Hoàng Lương",
         mssv: "2251220018",
-        lop: "Kỹ thuật Phần mềm"
+        lop: "22CT1"
     });
 });
 
