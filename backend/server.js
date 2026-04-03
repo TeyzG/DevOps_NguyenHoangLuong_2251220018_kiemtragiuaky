@@ -43,6 +43,6 @@ app.post('/tasks', (req, res) => {
     });
 });
 app.get('/', (req, res) => {
-    res.send("Backend is running! Try /about or /health");
+    res.send("Backend đang chạy! Hãy thử /about hoặc /health");
 });
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
