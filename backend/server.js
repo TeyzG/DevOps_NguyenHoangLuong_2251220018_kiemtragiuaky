@@ -27,7 +27,7 @@ app.get('/about', (req, res) => {
 
 // 2. Endpoint /health
 app.get('/health', (req, res) => {
-    res.status(200).json({ status: "ok" });
+    res.status(200).json({ status: "Health đang hoạt động" });
 });
 
 // 3. API GET: Lấy danh sách task từ DB
