@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevOps Project - Lương</title>
+</head>
+<body>
+    <h1>Thông tin cá nhân</h1>
+    <div id="about"></div>
+
+    <hr>
+    <h3>Quản lý Task (Database)</h3>
+    <input type="text" id="taskInput" placeholder="Nhập task mới...">
+    <button onclick="addTask()">Thêm</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        const API_URL = "http://localhost:5000";
+
+        // Lấy thông tin /about
+        fetch(`${API_URL}/about`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('about').innerHTML = 
+                    `<p>Họ tên: ${data.ho_ten}</p><p>MSSV: ${data.mssv}</p>`;
+            });
+
+        // Lấy danh sách tasks
+        function loadTasks() {
+            fetch(`${API_URL}/tasks`)
+                .then(res => res.json())
+                .then(data => {
+                    const list = document.getElementById('taskList');
+                    list.innerHTML = data.map(t => `<li>${t.title}</li>`).join('');
+                });
+        }
+
+        function addTask() {
+            const title = document.getElementById('taskInput').value;
+            fetch(`${API_URL}/tasks`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ title })
+            }).then(() => {
+                document.getElementById('taskInput').value = '';
+                loadTasks();
+            });
+        }
+        loadTasks();
+    </script>
+</body>
+</html>
