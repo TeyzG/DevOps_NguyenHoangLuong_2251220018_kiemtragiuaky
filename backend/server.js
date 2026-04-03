@@ -16,7 +16,6 @@ const db = mysql.createPool({
     database: 'devops_db'
 });
 
-// 1. Endpoint /about
 app.get('/about', (req, res) => {
     res.json({
         ho_ten: "Nguyễn Hoàng Lương",
@@ -25,12 +24,10 @@ app.get('/about', (req, res) => {
     });
 });
 
-// 2. Endpoint /health
 app.get('/health', (req, res) => {
     res.status(200).json({ status: "Health đang hoạt động" });
 });
 
-// 3. API GET: Lấy danh sách task từ DB
 app.get('/tasks', (req, res) => {
     db.query('SELECT * FROM tasks', (err, results) => {
         if (err) return res.status(500).json(err);
@@ -38,7 +35,6 @@ app.get('/tasks', (req, res) => {
     });
 });
 
-// 4. API POST: Thêm task mới
 app.post('/tasks', (req, res) => {
     const { title } = req.body;
     db.query('INSERT INTO tasks (title) VALUES (?)', [title], (err, result) => {
@@ -46,5 +42,7 @@ app.post('/tasks', (req, res) => {
         res.json({ id: result.insertId, title });
     });
 });
-
+app.get('/', (req, res) => {
+    res.send("Backend is running! Try /about or /health");
+});
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
